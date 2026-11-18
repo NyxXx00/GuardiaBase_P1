@@ -55,15 +55,13 @@ namespace UDIT.IA3.Guardia
 
             if (nivel == NivelSospecha.Alerta)
             {
-                // TODO · descomentad cuando tengáis EstadoPerseguir
-                // StateMachine.ChangeState(new EstadoPerseguir(StateMachine));
+                StateMachine.ChangeState(new EstadoPerseguir(StateMachine));
                 return;
             }
 
             if (nivel == NivelSospecha.Sospecha)
             {
-                // TODO · descomentad cuando tengáis EstadoInvestigar
-                // StateMachine.ChangeState(new EstadoInvestigar(StateMachine));
+                StateMachine.ChangeState(new EstadoInvestigar(StateMachine));
                 return;
             }
 
