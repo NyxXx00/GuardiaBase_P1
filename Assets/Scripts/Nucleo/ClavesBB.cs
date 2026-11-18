@@ -45,6 +45,9 @@ namespace UDIT.IA3.Guardia
         // ── Las escribe la DECISIÓN, las lee el MOVIMIENTO ─────────────────
 
         /// <summary>Vector3 · a dónde quiero ir. La decisión NO mueve: pide.</summary>
+
+        public const string PosSospecha = "posSospecha";
+
         public const string Destino = "destino";
 
         /// <summary>bool · ¿hay un destino pendiente?</summary>
