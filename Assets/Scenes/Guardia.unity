@@ -690,6 +690,8 @@ GameObject:
   - component: {fileID: 831304304}
   - component: {fileID: 831304303}
   - component: {fileID: 831304302}
+  - component: {fileID: 831304311}
+  - component: {fileID: 831304310}
   m_Layer: 0
   m_Name: Guardia
   m_TagString: Untagged
@@ -760,8 +762,9 @@ MonoBehaviour:
   UmbralSospecha: 0.35
   UmbralAlerta: 0.8
   Histeresis: 0.1
-  DepurarEnJuego: 1
-  GrosorLinea: 0.03
+  CongelarSospechaAlBuscar: 1
+  DistanciaLlegada: 1.5
+  TiempoMaxBusqueda: 20
 --- !u!114 &831304305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,6 +880,39 @@ Transform:
   - {fileID: 1196959956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &831304310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831304301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642857726a59dd940a05aa5ffa2fdf11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UDIT.IA3.Guardia.GuardiaGizmos
+  DibujarCono: 1
+  DibujarSospecha: 1
+  DibujarUltimaPos: 1
+--- !u!114 &831304311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831304301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a6658a72ec0844190560e65fc1ed24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UDIT.IA3.Guardia.MedidorSospecha
+  DibujarRayos: 1
+  DibujarDistanciaMaxEvidencia: 1
+  RayosEnJuego: 1
+  TextoEnJuego: 1
+  GrosorLinea: 0.03
+  LogSospechaEnConsola: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
