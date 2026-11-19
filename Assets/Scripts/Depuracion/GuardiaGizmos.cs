@@ -40,9 +40,9 @@ namespace UDIT.IA3.Guardia
         {
             switch (n)
             {
-                case NivelSospecha.Alerta:   return new Color(1f, 0.2f, 0.2f);
+                case NivelSospecha.Alerta: return new Color(1f, 0.2f, 0.2f);
                 case NivelSospecha.Sospecha: return new Color(1f, 0.85f, 0.2f);
-                default:                     return new Color(0.4f, 0.9f, 0.4f);
+                default: return new Color(0.4f, 0.9f, 0.4f);
             }
         }
 
@@ -55,19 +55,19 @@ namespace UDIT.IA3.Guardia
             NivelSospecha nivel = _vision.NivelActual;
             Color c = ColorDe(nivel);
 
-            // ── El cono de visión ───────────────────────────────────────────
+            // El cono de visión
             if (DibujarCono)
             {
                 Gizmos.color = new Color(c.r, c.g, c.b, 0.85f);
 
                 float medio = _vision.AnguloVision * 0.5f;
                 Vector3 izq = Quaternion.Euler(0f, -medio, 0f) * ojos.forward;
-                Vector3 der = Quaternion.Euler(0f,  medio, 0f) * ojos.forward;
+                Vector3 der = Quaternion.Euler(0f, medio, 0f) * ojos.forward;
 
                 Gizmos.DrawLine(ojos.position, ojos.position + izq * _vision.Alcance);
                 Gizmos.DrawLine(ojos.position, ojos.position + der * _vision.Alcance);
 
-                // El arco, a trozos
+                // El arco
                 const int pasos = 16;
                 Vector3 previo = ojos.position + izq * _vision.Alcance;
                 for (int i = 1; i <= pasos; i++)
@@ -87,7 +87,7 @@ namespace UDIT.IA3.Guardia
                 }
             }
 
-            // ── La barra de sospecha, sobre la cabeza ───────────────────────
+            // La barra de sospecha, sobre la cabeza
             if (DibujarSospecha && Application.isPlaying)
             {
                 Vector3 baseBarra = transform.position + Vector3.up * 2.3f - Vector3.right * 0.5f;
@@ -101,7 +101,7 @@ namespace UDIT.IA3.Guardia
                     Gizmos.DrawLine(baseBarra, baseBarra + Vector3.right * s);
             }
 
-            // ── La última posición conocida ─────────────────────────────────
+            // La última posición conocida
             if (DibujarUltimaPos && Application.isPlaying && _agente != null &&
                 _agente.Pizarra != null && _agente.Pizarra.Get(ClavesBB.TieneUltimaPos, false))
             {
