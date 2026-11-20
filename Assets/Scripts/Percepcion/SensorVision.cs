@@ -38,8 +38,8 @@ namespace UDIT.IA3.Guardia
         public string TagObjetivo = "Player";
 
         [Header("Cono de visión")]
-        public float Alcance = 15f;
-        [Range(0f, 180f)] public float AnguloVision = 60f;
+        public float Alcance = 20f;
+        [Range(0f, 180f)] public float AnguloVision = 80f;
 
         [Tooltip("Desde dónde se mira. Si está vacío se usa el propio transform. " +
                  "Poned aquí la cabeza: mirar desde los pies da resultados raros.")]
@@ -50,9 +50,9 @@ namespace UDIT.IA3.Guardia
         public LayerMask CapasQueOcluyen;
 
         [Header("Puntos de comprobación")]
-        public float AlturaCentro = 0.9f;
-        public float AlturaCabeza = 1.6f;
-        public float AlturaPies = 0.1f;
+        public float AlturaCentro = 0f;
+        public float AlturaCabeza = 0.5f;
+        public float AlturaPies = -1f;
         [Tooltip("Separación a izquierda y derecha del centro (simula brazos).")]
         public float SeparacionLateral = 0.35f;
 
@@ -65,13 +65,12 @@ namespace UDIT.IA3.Guardia
         public float MultiUnPunto = 0.25f;
 
         [Header("Factores de la evidencia")]
-        [Tooltip("A esta distancia o menos, con el jugador VISIBLE (RayosMaxVis o más rayos " +
-                 "y dentro del cono), la sospecha salta a 1 al instante.")]
+        [Tooltip("A esta distancia o menos, con el jugador VISIBLE (RayosMaxVis o más rayos y dentro del cono), la sospecha salta a 1 al instante.")]
         public float DistanciaMaxEvidencia = 3f;
         [Tooltip("Factor distancia a máximo alcance.")]
-        [Range(0f, 1f)] public float FactorMinimoLejos = 0.2f;
+        [Range(0f, 1f)] public float FactorMinimoLejos = 0.25f;
         [Tooltip("Factor ángulo en el borde del cono (en el centro vale 1).")]
-        [Range(0f, 1f)] public float FactorMinimoBorde = 0.3f;
+        [Range(0f, 1f)] public float FactorMinimoBorde = 0.25f;
 
         [Header("Medidor de sospecha — APARTADO A DEL ENUNCIADO")]
         [Tooltip("Cuánto sube por segundo con evidencia máxima.")]
