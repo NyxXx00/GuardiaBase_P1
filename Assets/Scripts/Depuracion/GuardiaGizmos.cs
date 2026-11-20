@@ -30,10 +30,74 @@ namespace UDIT.IA3.Guardia
         private GuardiaAgente _agente;
         private SensorVision _vision;
 
+        // Cubo naranja real (no gizmo) en la última posición conocida.
+        private GameObject _cuboUltimaPos;
+
         private void Awake()
         {
             _agente = GetComponent<GuardiaAgente>();
             _vision = GetComponent<SensorVision>();
+        }
+
+        private void LateUpdate()
+        {
+            ActualizarCuboUltimaPos();
+        }
+
+        private void OnDestroy()
+        {
+            if (_cuboUltimaPos != null) Destroy(_cuboUltimaPos);
+        }
+
+        /// <summary>
+        /// Si DibujarUltimaPos está activo, el guardia conoce una última posición y NO
+        /// está Tranquilo, crea (la primera vez) y coloca un cubo naranja ahí. Cuando
+        /// vuelve a Tranquilo (ya ha buscado y ha olvidado) lo oculta; si lo vuelve a
+        /// sospechar, reaparece en la última posición.
+        /// </summary>
+        private void ActualizarCuboUltimaPos()
+        {
+            if (_vision == null) _vision = GetComponent<SensorVision>();
+
+            bool mostrar = DibujarUltimaPos && _agente != null && _agente.Pizarra != null &&
+                           _vision != null && _vision.NivelActual != NivelSospecha.Tranquilo &&
+                           _agente.Pizarra.Get(ClavesBB.TieneUltimaPos, false);
+
+            if (!mostrar)
+            {
+                if (_cuboUltimaPos != null && _cuboUltimaPos.activeSelf)
+                    _cuboUltimaPos.SetActive(false);
+                return;
+            }
+
+            if (_cuboUltimaPos == null) CrearCuboUltimaPos();
+            if (_cuboUltimaPos == null) return;
+
+            Vector3 lkp = _agente.Pizarra.Get(ClavesBB.UltimaPos, Vector3.zero);
+            _cuboUltimaPos.transform.position = lkp + Vector3.up * 0.1f;
+
+            if (!_cuboUltimaPos.activeSelf) _cuboUltimaPos.SetActive(true);
+        }
+
+        private void CrearCuboUltimaPos()
+        {
+            _cuboUltimaPos = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            _cuboUltimaPos.name = "UltimaPos_" + name;
+            _cuboUltimaPos.transform.localScale = new Vector3(0.6f, 0.2f, 0.6f);
+
+            // Solo es visual: sin collider para no estorbar a la física ni a los raycasts.
+            Collider col = _cuboUltimaPos.GetComponent<Collider>();
+            if (col != null) Destroy(col);
+
+            Renderer rend = _cuboUltimaPos.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                Shader shader = Shader.Find("Sprites/Default");
+                if (shader != null) rend.material = new Material(shader);
+                rend.material.color = new Color(1f, 0.5f, 0f, 1f);
+                rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                rend.receiveShadows = false;
+            }
         }
 
         private static Color ColorDe(NivelSospecha n)
